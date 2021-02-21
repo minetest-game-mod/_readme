@@ -1,0 +1,19 @@
+
+name: Split into separate mods
+on:
+#  schedule:
+#    - 5 4 * * *
+  push:
+    branches:
+      - master
+
+jobs:
+  split-the-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Clone MTG
+        run: |
+          git clone git@github.com:lord-server/minetest_game.git
+          cd minetest_game
+          git status
