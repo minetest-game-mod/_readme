@@ -15,11 +15,18 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Clone MTG
-        uses: actions/checkout@v2
-        with:
-          repository: lord-server/minetest_game
+        run: git clone https://alek13:${{secrets.TOKEN}}@github.com/lord-server/minetest_game.git
+#        uses: actions/checkout@v2
+#        with:
+#          repository: lord-server/minetest_game
+#          path: minetest_game
 
       - name: Test check
         run: |
           cd minetest_game
           git status
+          git remote -v
+
+#      - name: Add Remotes
+#        run: |
+#          git remote add ...
