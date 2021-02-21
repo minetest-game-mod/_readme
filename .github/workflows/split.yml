@@ -11,9 +11,15 @@ jobs:
   split-the-repo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Clone Self
+        uses: actions/checkout@v2
+
       - name: Clone MTG
+        uses: actions/checkout@v2
+        with:
+          repository: lord-server/minetest_game
+
+      - name: Test check
         run: |
-          git clone git@github.com:lord-server/minetest_game.git
           cd minetest_game
           git status
