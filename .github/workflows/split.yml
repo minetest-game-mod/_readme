@@ -10,6 +10,8 @@ on:
 jobs:
   split-the-repo:
     runs-on: ubuntu-latest
+    env:
+      token: ${{secrets.TOKEN}}
     steps:
       - name: Clone Self
         uses: actions/checkout@v2
@@ -21,12 +23,20 @@ jobs:
 #          repository: lord-server/minetest_game
 #          path: minetest_game
 
+      - name: Add Remotes
+        run: |
+          ./for-each 'git remote add mtg-mod-$dir https://alek13:${{secrets.TOKEN}}@github.com/minetest-game-mod/$dir.git'
+
       - name: Test check
         run: |
           cd minetest_game
           git status
           git remote -v
+          cd ..
 
-#      - name: Add Remotes
-#        run: |
-#          git remote add ...
+      - name: Separate Directories Push
+        run: |
+          cd minetest_game
+          git checkout master
+          cd ..
+          ./for-each 'git subtree push -P mods/$dir mtg-mod-$dir master'

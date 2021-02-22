@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd minetest_game;
+while read dir; do
+	if [ -d mods/$dir ]; then
+	  eval "echo \"$1\""
+		eval "$1";
+		echo;
+	fi;
+done <<< $(for i in mods/*; do echo "${i:5}"; done);
+cd ..;
