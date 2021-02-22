@@ -18,14 +18,14 @@ jobs:
 
       - name: Clone MTG
         run: git clone https://alek13:${{secrets.TOKEN}}@github.com/lord-server/minetest_game.git
-#        uses: actions/checkout@v2
-#        with:
-#          repository: lord-server/minetest_game
-#          path: minetest_game
+
+      - name: Create Repos If Not Exists
+        run: |
+          echo ${{secrets.TOKEN}} | gh auth login --with-token
+          ./for-each '../create-repo-if-not-exist $dir'
 
       - name: Add Remotes
-        run: |
-          ./for-each 'git remote add mtg-mod-$dir https://alek13:${{secrets.TOKEN}}@github.com/minetest-game-mod/$dir.git'
+        run: ./for-each 'git remote add mtg-mod-$dir https://alek13:${{secrets.TOKEN}}@github.com/minetest-game-mod/$dir.git'
 
       - name: Test check
         run: |

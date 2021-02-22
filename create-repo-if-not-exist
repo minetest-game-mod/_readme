@@ -1,0 +1,12 @@
+#!/bin/bash
+
+repo=$1;
+
+function repo_not_exists() {
+  local repository=$1
+  [ `curl -s -o /dev/null -w "%{http_code}" https://github.com/PHPColibri/$repository` == '404' ];
+}
+
+if repo_not_exists $repo; then
+  gh repo create minetest-game-mod/$repo -d "[READ ONLY] Mitetest mod $repo (Splitted from minetest_game)" --enable-issues=false --enable-wiki=false --public -y
+fi
