@@ -2,7 +2,7 @@
 name: Split into separate mods
 on:
   schedule:
-    - 5 4 * * *
+    - cron: 5 4 * * *
   push:
     branches:
       - master
