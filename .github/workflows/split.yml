@@ -1,8 +1,8 @@
 
 name: Split into separate mods
 on:
-#  schedule:
-#    - 5 4 * * *
+  schedule:
+    - 5 4 * * *
   push:
     branches:
       - master
@@ -27,6 +27,9 @@ jobs:
           git checkout master
           git pull upstream master
           git push origin master
+          git checkout stable-5
+          git pull upstream stable-5
+          git push origin stable-5
           cd ..
 
       - name: Create Repos If Not Exists
@@ -36,13 +39,6 @@ jobs:
 
       - name: Add Remotes
         run: ./for-each 'git remote add mtg-mod-$dir https://alek13:${{secrets.TOKEN}}@github.com/minetest-game-mod/$dir.git'
-
-#      - name: Test check
-#        run: |
-#          cd minetest_game
-#          git status
-#          git remote -v
-#          cd ..
 
       - name: Separate Directories Push
         run: |
