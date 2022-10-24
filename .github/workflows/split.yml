@@ -1,11 +1,11 @@
 
 name: Split into separate mods
-on:
-  schedule:
-    - cron: 5 4 * * *
-  push:
-    branches:
-      - master
+on: workflow_dispatch
+#  schedule:
+#    - cron: 5 4 * * *
+#  push:
+#    branches:
+#      - master
 
 jobs:
   split-the-repo:
