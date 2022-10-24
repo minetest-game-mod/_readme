@@ -8,5 +8,5 @@ function repo_not_exists() {
 }
 
 if repo_not_exists $repo; then
-  gh repo create minetest-game-mod/$repo -d "[READ ONLY] Mitetest mod $repo (Splitted from minetest_game)" --enable-issues=false --enable-wiki=false --public -y
+  gh repo create minetest-game-mod/$repo -d "[READ ONLY] Mitetest mod $repo (Splitted from minetest_game)" --disable-issues --disable-wiki --public
 fi
