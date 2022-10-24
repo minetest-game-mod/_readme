@@ -19,18 +19,18 @@ jobs:
       - name: Clone Lord-MTG
         run: git clone https://alek13:${{secrets.TOKEN}}@github.com/lord-server/minetest_game.git
 
-      - name: Update MTG From Original Upstream
-        run: |
-          cd minetest_game
-          git remote add upstream https://alek13:${{secrets.TOKEN}}@github.com/minetest/minetest_game.git
-          git config pull.ff only
-          git checkout master
-          git pull upstream master
-          git push origin master
-          git checkout stable-5
-          git pull upstream stable-5
-          git push origin stable-5
-          cd ..
+#      - name: Update MTG From Original Upstream
+#        run: |
+#          cd minetest_game
+#          git remote add upstream https://alek13:${{secrets.TOKEN}}@github.com/minetest/minetest_game.git
+#          git config pull.ff only
+#          git checkout master
+#          git pull upstream master
+#          git push origin master
+#          git checkout stable-5
+#          git pull upstream stable-5
+#          git push origin stable-5
+#          cd ..
 
       - name: Create Repos If Not Exists
         run: |
