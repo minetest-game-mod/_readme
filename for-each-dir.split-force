@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+./for-each-dir 'git push mtg-mod-$dir $(git subtree split -P mods/$dir):master --force'

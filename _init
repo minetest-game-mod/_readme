@@ -1,0 +1,7 @@
+#!/bin/bash
+
+gh repo clone lord-server/minetest_game _MTG
+
+./for-each-dir 'git remote add mtg-mod-$dir git@github.com:minetest-game-mod/$dir.git'
+
+./for-each-dir.clone-repo

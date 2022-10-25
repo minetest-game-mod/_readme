@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+./for-each-dir 'gh repo clone minetest-game-mod/$dir ../splitted/$dir'

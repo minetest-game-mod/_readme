@@ -16,12 +16,15 @@ jobs:
       - name: Clone Self
         uses: actions/checkout@v2
 
+      - name: GH Auth
+        run: echo ${{secrets.TOKEN}} | gh auth login --with-token
+
       - name: Clone Lord-MTG
-        run: git clone https://alek13:${{secrets.TOKEN}}@github.com/lord-server/minetest_game.git
+        run: gh repo clone lord-server/minetest_game _MTG
 
 #      - name: Update MTG From Original Upstream
 #        run: |
-#          cd minetest_game
+#          cd _MTG
 #          git remote add upstream https://alek13:${{secrets.TOKEN}}@github.com/minetest/minetest_game.git
 #          git config pull.ff only
 #          git checkout master
@@ -33,16 +36,14 @@ jobs:
 #          cd ..
 
       - name: Create Repos If Not Exists
-        run: |
-          echo ${{secrets.TOKEN}} | gh auth login --with-token
-          ./for-each '../create-repo-if-not-exist $dir'
+        run: ./for-each-dir '../create-repo-if-not-exist $dir'
 
       - name: Add Remotes
-        run: ./for-each 'git remote add mtg-mod-$dir https://alek13:${{secrets.TOKEN}}@github.com/minetest-game-mod/$dir.git'
+        run: ./for-each-dir 'git remote add mtg-mod-$dir git@github.com:minetest-game-mod/$dir.git'
 
       - name: Separate Directories Push
         run: |
-          cd minetest_game
+          cd _MTG
           git checkout master
           cd ..
-          ./for-each 'git subtree push -P mods/$dir mtg-mod-$dir master'
+          ./for-each-dir 'git subtree push -P mods/$dir mtg-mod-$dir master'
