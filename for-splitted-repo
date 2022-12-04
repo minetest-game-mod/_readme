@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
+set -e
+
+. colors
+
 while read repo; do
 	if [ -d _MTG/mods/$repo ]; then
+	  c.header "  MTG/$repo  "
 	  cd splitted/$repo
 	  eval "echo \"$1\""
 		eval "$1";
-		echo;
 		cd ../..
 	fi;
 done <<< $(for i in _MTG/mods/*; do echo "${i:10}"; done);

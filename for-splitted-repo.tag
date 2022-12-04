@@ -1,8 +1,29 @@
 #!/usr/bin/env bash
 
-if [[ $# == 0 ]]; then
+set -e
+
+. colors
+
+echo $#
+
+if [[ $# -ne 2 ]]; then
   ./for-splitted-repo 'git --no-pager tag --list'
-else
-  tag=$1
-  ./for-splitted-repo "git tag $tag; git push --tags"
+  echo "========================================"
+  echo "${green}Usage:${reset} $0 <branch> <tag>"
+  echo "========================================"
 fi
+
+branch=$1
+tag=$2
+
+echo "${green}Branch:${reset} ${bold}$branch${reset}"
+echo "${green}   Tag:${reset} ${bold}$tag${reset}"
+c.askContinue "Continue with tagging"
+
+./for-splitted-repo "
+    git fetch -p;
+    git checkout $branch;
+    git pull;
+    git tag $tag;
+    git push --tags
+"
