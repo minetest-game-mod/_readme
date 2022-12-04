@@ -1,3 +1,17 @@
 #!/usr/bin/env bash
 
-./for-each-dir 'git subtree push -P mods/$dir mtg-mod-$dir master'
+set -e
+
+if [[ $# == 0 ]]; then
+    echo "Specify the branch"
+    exit 1;
+fi
+
+branch=$1
+
+cd _MTG
+git checkout "$branch"
+git pull
+cd ..
+
+./for-each-dir "git subtree push -P mods/\$dir mtg-mod-\$dir $branch"
