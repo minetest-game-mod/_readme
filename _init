@@ -1,6 +1,9 @@
 #!/bin/bash
 
 gh repo clone lord-server/minetest_game _MTG
+cd _MTG
+git remote add upstream git@github.com:minetest/minetest_game.git
+cd ..
 
 ./for-each-dir 'git remote add mtg-mod-$dir git@github.com:minetest-game-mod/$dir.git'
 

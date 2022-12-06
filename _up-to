@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+if [[ $# == 0 ]]; then
+    echo "Specify the tag"
+    exit 1;
+fi
+
+tag=$1
+
+cd _MTG
+git fetch -p
+git checkout master
+git pull upstream master
+git reset $tag --hard
+git push
+cd ..
+
+./for-each-dir.split master
+./for-splitted-repo.tag master $tag
+
+cd _MTG/
+git checkout lord
+git pull
+git merge master --no-edit
+git push
+git tag $tag-lord
+git push --tags
+cd ..
+
+./for-each-dir.split lord
+./for-splitted-repo.tag lord $tag-lord

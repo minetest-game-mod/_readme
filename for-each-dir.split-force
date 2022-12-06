@@ -2,4 +2,22 @@
 
 set -e
 
-./for-each-dir 'git push mtg-mod-$dir $(git subtree split -P mods/$dir):master --force'
+. colors
+
+if [[ $# == 0 ]]; then
+    echo "Specify the branch"
+    exit 1;
+fi
+
+branch=$1
+
+echo "${green}Branch:${reset} ${bold}$branch${reset}"
+c.askContinue "Continue with ${lightred}FORCE${reset} splitting"
+
+
+cd _MTG
+git checkout "$branch"
+git pull
+cd ..
+
+./for-each-dir "git push mtg-mod-\$dir \$(git subtree split -P mods/\$dir):$branch --force"
