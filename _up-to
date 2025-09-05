@@ -3,23 +3,28 @@
 set -e
 
 if [[ $# == 0 ]]; then
-    echo "Specify the tag"
+    echo "Specify the tag in \`YYYY.MM\` like \`2005.09\`"
     exit 1;
 fi
 
 tag=$1
+
+# MTG перестали ставить версионные теги (последний 5.8), поэтому
+#   - используем master и не ставим теги на master-ветках сплитов
+#   - ставим теги только на lord-ветках сплитов, применяя `YYYY.MM` формат
 
 cd _MTG
 git fetch -p
 git fetch upstream
 git checkout master
 git pull upstream master
-git reset $tag --hard
+# см. коммент выше  git reset $tag --hard
 git push
 cd ..
 
 ./for-each-dir.split master
-./for-splitted-repo.tag master $tag
+# см. коммент выше  ./for-splitted-repo.tag master $tag
+
 
 cd _MTG/
 git checkout lord
