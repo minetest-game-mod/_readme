@@ -2,6 +2,8 @@
 
 set -e
 
+. colors
+
 if [[ $# == 0 ]]; then
     echo "Specify the tag in \`YYYY.MM\` like \`2005.09\`"
     exit 1;
@@ -36,4 +38,5 @@ git push --tags
 cd ..
 
 ./for-each-dir.split lord
+c.askContinue "Continue, and add tags \`$tag-lord\` to lord repos?"
 ./for-splitted-repo.tag lord $tag-lord

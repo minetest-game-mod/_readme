@@ -3,7 +3,7 @@
 cd _MTG;
 while read dir; do
 	if [ -d mods/$dir ]; then
-	  eval "echo \"$1\""
+		eval "echo \"$1\""
 		eval "$1";
 		echo;
 	fi;
