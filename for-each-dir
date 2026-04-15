@@ -1,9 +1,12 @@
 #!/bin/bash
 
+. colors
+
 cd _MTG;
 while read dir; do
 	if [ -d mods/$dir ]; then
-		eval "echo \"$1\""
+		c.header "Processing $cyan\$dir$purple: $yellow$dir$purple"
+		echo "command: $yellow$1$purple$reset"
 		eval "$1";
 		echo;
 	fi;
